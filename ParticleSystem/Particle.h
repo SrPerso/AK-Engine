@@ -42,7 +42,7 @@ public:
 
 	void CalcInterpolation();
 
-
+	void DrawParticle();
 private:
 	ParticleSystem * pSystem;
 	ParticleData Data;

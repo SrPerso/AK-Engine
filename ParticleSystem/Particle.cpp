@@ -1,6 +1,6 @@
 #include "Particle.h"
 #include "ParticleSystem.h"
-
+#include "..\Glew\include\glew.h"
 
 
 Particle::Particle(ParticleSystem * parent, const SystemState & initial, const SystemState & final, float3 Speed, float MaxLifeTime)
@@ -60,4 +60,21 @@ void Particle::CalcInterpolation()
 	Data.force.x = Initial.force.x + Data.LifeTime*(Final.force.x - Initial.force.x);
 	Data.force.y = Initial.force.y + Data.LifeTime*(Final.force.y - Initial.force.y);
 	Data.force.z = Initial.force.z + Data.LifeTime*(Final.force.z - Initial.force.z);
+}
+
+void Particle::DrawParticle()
+{
+	glDisable(GL_CULL_FACE);
+
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+	if (pSystem->tData.textureID != 0)
+	{
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glBindTexture(GL_TEXTURE_2D, pSystem->tData.textureID);
+	}
+	glPushMatrix();
+	float4x4 ParticleMatrix = float4x4::FromTRS(Data.Position, Data.Rotation, Data.Scale).Transposed();
+	glMultMatrixf(ParticleMatrix.ptr());
+
 }
