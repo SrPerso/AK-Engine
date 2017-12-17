@@ -60,7 +60,7 @@ public:
 	float speed = 0.f; // speed to drop the particles
 	float modSpeed = 0.f; // intervale of speed to drop particles
 public:
-	float emiterTime = 0.f;
+	float emiterTime = 0.f; // time to emite in emiter
 };
 
 
@@ -98,8 +98,6 @@ private:
 	bool active = true; //can be draw the shape or not
 	
 	ParticleSystem* pSystem;
-
-
 	Etype type = E_SPHERE;
 	Shape shape; 
 	

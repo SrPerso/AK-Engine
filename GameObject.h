@@ -6,6 +6,7 @@
 #include <vector>
 
 class Configuration;
+enum Event_Engine;
 
 class GameObject
 {
@@ -34,6 +35,8 @@ public:
 	void OnEditor();
 	void ShowProperties();
 	void RecursiveDraw();
+
+	void OnEvent(Event_Engine);
 
 	//Used from root when there's no quadtree acceleration
 	void CollectAllIntersectionsAABB(std::vector<GameObject*>& intersections, LineSegment& line);

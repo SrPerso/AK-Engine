@@ -13,6 +13,14 @@ enum ComponentType
 	Component_Camera,
 	Component_Particles
 };
+enum TimeState
+{
+	C_PLAYING, 
+	C_STOP,
+	C_PAUSED
+};
+
+enum Event_Engine;
 
 class Component
 {
@@ -30,7 +38,7 @@ public:
 	virtual void OnPlay();
 	virtual void OnStop();
 	//---
-
+	virtual void OnEvent(Event_Engine);
 
 	virtual void OnSave(Configuration& data)const;
 	virtual void OnLoad(Configuration& data);
@@ -50,4 +58,6 @@ protected:
 	std::string name;
 	bool active = true;
 	ComponentType type;
+
+	TimeState state= C_PAUSED;
 };

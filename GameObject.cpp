@@ -367,6 +367,18 @@ void GameObject::RecursiveDraw()
 	}
 }
 
+void GameObject::OnEvent(Event_Engine eventt)
+{
+	for (int i = 0; i < components.size(); i++)
+	{
+		components[i]->OnEvent(eventt);
+	}
+	for (int i = 0; i < childs.size(); i++)
+	{
+		childs[i]->OnEvent(eventt);
+	}
+}
+
 void GameObject::CollectAllIntersectionsAABB(std::vector<GameObject*>& intersections, LineSegment & line)
 {
 	ComponentMesh* cMesh = (ComponentMesh*)FindComponent(Component_Mesh);
