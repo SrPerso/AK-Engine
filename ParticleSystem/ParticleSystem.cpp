@@ -12,7 +12,7 @@ ParticleSystem::ParticleSystem()
 
 	particleMesh = new ParticleMesh();
 	SetPlaneMesh();
-
+	//tData.textureID = App->textures->ImportImage("../Game/Assets/Baker_house.png");
 	emiter = new Emiter();
 	emiter->pSystem = this;
 }
@@ -22,7 +22,6 @@ ParticleSystem::~ParticleSystem()
 	RELEASE(emiter);
 	RELEASE(transformation);
 	RELEASE(particleMesh);
-
 
 
 	//for (std::vector<Particle*>::iterator it = particleVec.end(); it != particleVec.begin(); --it)
@@ -43,25 +42,44 @@ bool ParticleSystem::Update(float dt)
 	bool ret = true;
 	
 	//tData.textureID = App->textures->ImportImage("../Game/Assets/Baker_house.png");
-	if (ps_state != PS_PLAYING  /*&& emiter->data.emiterTime > emiter->data.timeToEmite*/)
-		return ret;
 
-	this->control += dt;
-
-	this->ps_dt += dt;
-
-	if (control <= emiter->data.timeToEmite || emiter->data.loop == true)
+	if (ps_state == PS_PLAYING)
 	{
+		this->control += dt;
+		this->ps_dt += dt;
 
-		uint nParticles = ps_dt / emiter->data.particleRate;
-		for (int i = 0; i < nParticles; i++)
+		if (control <= emiter->data.timeToEmite || emiter->data.loop == true)
 		{
-			CreateParticle();
-			size++;
+
+			uint nParticles = ps_dt / emiter->data.particleRate;
+			for (int i = 0; i < nParticles; i++)
+			{
+				CreateParticle();
+				size++;
+			}
+			ps_dt -= emiter->data.particleRate * nParticles;
+		}
+		else
+		{
+			if (emiter->data.timeToEmite > emiter->data.emiterTime)
+			{
+				if (emiter->data.particleRate < dt)
+				{
+					uint nParticles = ps_dt / emiter->data.particleRate;
+					for (int i = 0; i < nParticles; i++)
+					{
+						CreateParticle();
+						size++;
+					}
+				}
+
+			}
+
+
+
 		}
 
-		ps_dt -= emiter->data.particleRate * nParticles;
-	}
+	}// playing exclusive
 
 	for (std::vector<Particle*>::iterator it = particleVec.begin(); it != particleVec.end(); ++it)
 	{
@@ -85,11 +103,8 @@ bool ParticleSystem::PostUpdate(float dt)
 void ParticleSystem::Stop()
 {
 	ps_state = PS_STOP;
-
-	for (std::vector<Particle*>::iterator it = particleVec.begin(); it != particleVec.end(); ++it)
-		(*it)->KillParticle();
-
-
+	
+	particleVec.clear();
 }
 
 void ParticleSystem::Play()
@@ -241,7 +256,7 @@ std::vector<float> ParticleSystem::SaveEmiter()
 	vectEmiter.push_back(emiter->data.speed);
 	vectEmiter.push_back(emiter->data.modSpeed);
 	vectEmiter.push_back(emiter->data.emiterTime);
-	
+
 	return vectEmiter;
 }
 
@@ -308,7 +323,7 @@ void ParticleSystem::DrawParticleSystemEditor()
 	if (!windowShow)
 		return;
 	
-	ImGui::Text("Number of particles %i", particleVec.size());
+	ImGui::Text("Number of particles %i", particleVec.size()); //to delete
 
 
 	if (ImGui::CollapsingHeader("Basic"))
@@ -320,12 +335,12 @@ void ParticleSystem::DrawParticleSystemEditor()
 	{
 		emiter->DrawEmiterEditor();
 	}
-
+	ImGui::Spacing;
+	ImGui::Spacing;
 }
 
 void ParticleSystem::Draw()
 {
-	//CreateParticle();
 	emiter->DrawEmiter();
 
 }
@@ -334,7 +349,7 @@ void ParticleSystem::DrawBasicEditor()
 {
 	if (ImGui::TreeNodeEx("Initial"))
 	{
-			ImGui::SliderFloat("Speed", (float*)&initialState.speed, 0, 50);
+			ImGui::SliderFloat("Speed", (float*)&initialState.speed, -2, 2);
 			ImGui::SliderFloat("Gravity", (float*)&initialState.gravity, -10, 10);
 			ImGui::SliderFloat("Gravity Variation", (float*)&initialState.gravityVariation, -5, 5);
 			ImGui::Separator();
@@ -375,7 +390,7 @@ void ParticleSystem::DrawBasicEditor()
 
 	if (ImGui::TreeNodeEx("Final"))
 	{
-			ImGui::SliderFloat("Speed", (float*)&finalState.speed, 0, 50);
+			ImGui::SliderFloat("Speed", (float*)&finalState.speed, -2, 2);
 			ImGui::SliderFloat("Gravity", (float*)&finalState.gravity, -10, 10);
 			ImGui::SliderFloat("Gravity Variation", (float*)&finalState.gravityVariation, -5, 5);
 			ImGui::Separator();
@@ -502,9 +517,16 @@ void ParticleSystem::CreateParticle()
 	case E_SPHERE:		
 		direction = emiter->shape.sphere.RandomPointOnSurface(rGen);
 			break;	
+	case E_SEMISPHERE:
+		direction = emiter->shape.sphere.RandomPointOnSurface(rGen);
+
+		if (direction.y < 0)
+			direction.y = abs(direction.y);
+
+		break;
 	};
 
-	Particle* nParticle = new Particle(this, initialState, finalState, direction, emiter->data.timePLife);
+	Particle* nParticle = new Particle(this, initialState, finalState, direction * (emiter->data.speed + rGen.Float(-emiter->data.modSpeed, emiter->data.modSpeed)), emiter->data.timePLife);
 	particleVec.push_back(nParticle);
 }
 

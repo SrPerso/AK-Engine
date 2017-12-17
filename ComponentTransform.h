@@ -15,7 +15,7 @@ public:
 
 	void Update(float dt);
 	void UpdateTrans();
-
+	
 	float4x4 GetGlobalTransform() const;
 	float4x4 GetLocalTransform() const;
 

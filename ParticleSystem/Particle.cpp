@@ -30,19 +30,27 @@ bool Particle::PreUpdate(float dt)
 
 bool Particle::Update(float dt) 
 {
-	float3 Orientation = pSystem->cameraPos - data.position;
-	Orientation.y = data.position.y;
-	data.rotation = Quat::LookAt(float3(0.0f, 0.0f, 1.0f), Orientation, float3(0.0f, 1.0f, 0.0f), float3(0.0f, 1.0f, 0.0f));
-	data.rotation.RotateY(30);
-	DrawParticle();
-
-	data.lifeTime += dt;
-	CalcInterpolation();	
-
-	if (data.lifeTime >= data.maxLifeTime & killThis==false)
+	if (pSystem->ps_state != PS_STOP)
 	{
-		killThis = true;
+		float3 Orientation = pSystem->cameraPos - data.position;
+		Orientation.y = data.position.y;
+
+		data.rotation = Quat::LookAt(float3(0.0f, 0.0f, 1.0f), Orientation, float3(0.0f, 1.0f, 0.0f), float3(0.0f, 1.0f, 0.0f));
+		DrawParticle();
 	}
+
+
+	if (pSystem->ps_state == PS_PLAYING|| pSystem->ps_state == PS_STOP)
+	{
+		data.lifeTime += dt;
+		CalcInterpolation();
+
+		if (data.lifeTime >= data.maxLifeTime & killThis == false)
+		{
+			killThis = true;
+		}
+	}
+
 	return true;
 }
 
@@ -110,14 +118,14 @@ void Particle::DrawParticle()
 	data.rotation.RotateAxisAngle({0,0,1}, data.rotationF);
 	float3 newScale = data.scale * data.size*0.1;
 	//glDisable(GL_CULL_FACE);
-
+	glColor4f(data.color.x, data.color.y, data.color.z, data.color.z);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	glEnable(GL_TEXTURE_2D);
+	//glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glColor4f(data.color.x,data.color.y,data.color.z,data.color.z);
-	if (mesh->idColors != 0)
+//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	if (pSystem->tData.textureID != 0)
 	{
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glBindTexture(GL_TEXTURE_2D, pSystem->tData.textureID);
@@ -149,9 +157,9 @@ void Particle::DrawParticle()
 
 	glPopMatrix();
 
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glDisable(GL_TEXTURE_2D);
-	glDisable(GL_BLEND);
+	//glBindTexture(GL_TEXTURE_2D, 0);
+	//glDisable(GL_TEXTURE_2D);
+	//glDisable(GL_BLEND);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);

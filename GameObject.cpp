@@ -132,6 +132,20 @@ void GameObject::Pause()
 
 }
 
+void GameObject::Stop()
+{
+
+	for (int i = 0; i < components.size(); i++)
+	{
+		components[i]->OnStop();
+	}
+	for (int i = 0; i < childs.size(); i++)
+	{
+		childs[i]->Stop();
+	}
+
+}
+
 const char * GameObject::GetName() const
 {
 	return name.c_str();
@@ -350,6 +364,18 @@ void GameObject::RecursiveDraw()
 	for (int i = 0; i < childs.size(); i++)
 	{
 		childs[i]->RecursiveDraw();
+	}
+}
+
+void GameObject::OnEvent(Event_Engine eventt)
+{
+	for (int i = 0; i < components.size(); i++)
+	{
+		components[i]->OnEvent(eventt);
+	}
+	for (int i = 0; i < childs.size(); i++)
+	{
+		childs[i]->OnEvent(eventt);
 	}
 }
 

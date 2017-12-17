@@ -5,7 +5,7 @@
 
 Emiter::Emiter()
 {
-	type = E_SPHERE;
+	type = E_SEMISPHERE;
 	DefaultEmiterData();
 }
 

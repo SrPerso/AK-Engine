@@ -1,6 +1,7 @@
 #include "Component.h"
 #include "Configuration.h"
 #include "GameObject.h"
+#include "Globals.h"
 
 Component::Component(ComponentType type, bool startActive) : type(type), active(startActive)
 {}
@@ -26,12 +27,21 @@ void Component::OnEditor()
 
 void Component::OnPause()
 {
-
+	state = C_PAUSED;
 }
 
 void Component::OnPlay()
 {
+	state = C_PLAYING;
+}
 
+void Component::OnStop()
+{
+	state = C_STOP;
+}
+
+void Component::OnEvent(Event_Engine)
+{
 }
 
 void Component::OnSave(Configuration& data) const

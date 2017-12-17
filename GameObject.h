@@ -6,6 +6,7 @@
 #include <vector>
 
 class Configuration;
+enum Event_Engine;
 
 class GameObject
 {
@@ -20,8 +21,12 @@ public:
 	void AddComponent(Component* component);
 	void SetName(const char* name);
 
+	//Time controls!
 	void Play();
 	void Pause();
+	void Stop();
+	//-----
+
 
 	const char* GetName() const;
 	int GetUID()const;
@@ -30,6 +35,8 @@ public:
 	void OnEditor();
 	void ShowProperties();
 	void RecursiveDraw();
+
+	void OnEvent(Event_Engine);
 
 	//Used from root when there's no quadtree acceleration
 	void CollectAllIntersectionsAABB(std::vector<GameObject*>& intersections, LineSegment& line);

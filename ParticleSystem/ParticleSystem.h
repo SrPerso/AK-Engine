@@ -17,18 +17,18 @@ struct SystemState //going to global state to set on particles latter
 {	
 	float size1 = 1.f;
 	float size2 = 1.f;
-	float gravity = 9.8f;
+	float gravity = 1;
 	float gravityVariation = 0.0f;
 	float rotation = 0.f;
 	float rotation2 = 0.f;
-	float speed = 1.0f;
+	float speed = 0.5f;
 	float4 color = float4::one; 
 	float4 color2 = float4::one;
 };
 // -------------------------------------- [TEXTURE]
 struct TextureData // it is like resource texture, contains all the data of the texture.
 {	
-	uint textureID = 0;
+	uint textureID = App->textures->ImportImage("../Game/Assets/Baker_house.png");
 	float4 color = float4::one;
 };
 
@@ -57,14 +57,14 @@ public:
 	bool Update(float dt);
 	bool PostUpdate(float dt);
 
-	// Events
-
-	void Stop();
-	void Play();
-	void Pause();
+	// Events in time 
+	void Stop(); // used to kill the particle system process
+	void Play();// used to play the particle system
+	void Pause();// Stops the particles
 
 
 	//	Save & load------------------------
+	/* used to calls to load and save the particle system*/
 
 	void Load(std::vector<float> vectEmiter, std::vector<float>initPart, std::vector<float>finalPart);
 	void Save(std::vector<float>& vectEmiter, std::vector<float> & initPart, std::vector<float> &finalPart);
@@ -73,11 +73,9 @@ public:
 	std::vector<float> SaveInitialState();
 	//UI -------------------------------
 	
-	//Draws ---
-	void DrawParticleSystemEditor();
-	void Draw();
-
-	
+	//Draws --- /*Draws the editor and the particles*/
+	void DrawParticleSystemEditor(); // basic 
+	void Draw();	
 	void DrawBasicEditor();
 	
 	//Show/unshow Window ---

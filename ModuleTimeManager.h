@@ -19,6 +19,9 @@ public:
 
 	void PlayGame(bool play);
 	void PauseGame(bool pause);
+
+	void StopGame(bool stoped);
+
 	void PlayOneFrame();
 	bool IsGamePaused();
 

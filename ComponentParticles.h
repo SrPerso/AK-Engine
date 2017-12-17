@@ -18,6 +18,7 @@ public:
 
 	void OnPlay() override;
 	void OnPause() override;
+	void OnStop() override;
 
 	void OnEditor()override;
 
