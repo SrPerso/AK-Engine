@@ -18,6 +18,7 @@ public:
 	void PostUpdate();
 	void AddChild(GameObject* child);
 	void DeleteChilds();
+	void DeleteChild(GameObject* child);
 	void AddComponent(Component* component);
 	void SetName(const char* name);
 
@@ -48,7 +49,7 @@ public:
 	void InsertSelfAndChilds();
 
 	void OnStaticChange();
-
+	GameObject* FindChild(GameObject* child);
 	Component* FindComponent(ComponentType type) const;
 	GameObject* GetParent() const;
 	GameObject* FindByUID(int toFind);
@@ -59,6 +60,8 @@ public:
 	bool selected = false;
 	bool isStatic;
 
+	bool isFire = false;
+	bool wantsToDie = false;
 protected:
 	int uid;
 
@@ -67,7 +70,7 @@ protected:
 	bool addingMesh = false;
 	bool addingMaterial = false;
 	bool addingParticlesystem = false;
-	bool wantsToDie = false;
+//	bool wantsToDie = false;
 
 	std::string name;
 	std::vector<Component*> components;

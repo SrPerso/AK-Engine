@@ -5,13 +5,37 @@
 #include "ComponentTransform.h"
 #include "Application.h"
 #include <vector>
+#include "ModuleTimeManager.h"
 
 ComponentParticles::ComponentParticles() : Component(Component_Particles)
 {
-	name = "Particle System";
-	
+	name = "Particle System";	
 	particleSystem = new ParticleSystem();
 	
+}
+
+ComponentParticles::ComponentParticles(PartType type) : Component(Component_Particles)
+{
+
+	name = "Particle System";
+	particleSystem = new ParticleSystem();
+	this->partType = type;
+
+	if(type == EXPLOSION)
+		particleSystem->SetExample2();
+
+	if (type == FIREWORK)
+	{
+		timeAlive = App->timeManager->GetRealDeltaTime();
+		particleSystem->SetExample1();
+	}
+
+
+	if (App->timeManager->getInGame() == true)
+	{
+		particleSystem->Play();
+	}
+
 }
 
 ComponentParticles::~ComponentParticles()
@@ -39,6 +63,13 @@ void ComponentParticles::Update(float dt)
 	particleSystem->SetTransform(myTransform->GetPosition(), myTransform->GetRotation(), {1,1,1});
 	particleSystem->Draw();
 
+	if(timeAlive>MAXTIMEEXPLODING && type == EXPLOSION)
+	{
+
+
+	}
+
+	
 	
 }
 

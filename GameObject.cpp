@@ -92,7 +92,6 @@ void GameObject::DeleteChilds()
 	}
 	childs.clear();
 }
-
 void GameObject::AddComponent(Component* component)
 {
 	components.push_back(component);
@@ -547,6 +546,18 @@ void GameObject::OnStaticChange()
 			childs[i]->OnStaticChange();
 		}
 	}
+}
+
+GameObject * GameObject::FindChild(GameObject * child)
+{
+	//for (int i = 0; i < childs.size(); i++)
+	//{
+	//	if (childs[i]->GetUID == child->GetUID)
+	//	{
+	//		return childs[i];
+	//	}
+	//}
+	return nullptr;
 }
 
 std::vector<GameObject*> GameObject::GetChilds() const

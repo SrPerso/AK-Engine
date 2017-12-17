@@ -45,7 +45,7 @@ public:
 
 	GameObject* CreateNewGameObject(const char* path);
 	void CreateEmptyGameObject();
-
+	GameObject* CreateFirework();
 	void WantToLoadScene(const char* fileTitle);
 	void SaveScene(const char* fileTitle)const;
 	void LoadScene(const char* fileTitle);
@@ -68,6 +68,8 @@ private:
 	Sphere spheretest;
 	Emiter* emiterTest = nullptr;
 	//
+
+	int counterFireworks = 0;
 };
 
 #endif

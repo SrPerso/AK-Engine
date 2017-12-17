@@ -7,11 +7,6 @@
 #include "GlobalDefines.h"
 #include "../ModuleTextures.h"
 
-
-
-
-
-
 // -------------------------------------- [STATE]
 struct SystemState //going to global state to set on particles latter
 {	
@@ -115,6 +110,16 @@ public:
 	TextureData tData;
 	float3 cameraPos = float3::zero;
 	
+
+
+	/* SOME EXAMPLES*/
+
+	void SetExample1();
+	void SetExample2();
 };
+
+
+
+
 
 #endif // !_PS_PARTICLE_SYSTEM_

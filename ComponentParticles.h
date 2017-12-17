@@ -7,10 +7,21 @@
 #include "ComponentCamera.h"
 #include "ModuleCamera3D.h"
 
+
+#define MAXTIMEEXPLODING 0.3f
+
+
+enum PartType
+{
+	FIREWORK,
+	EXPLOSION,
+	NORMAL
+};
 class ComponentParticles : public Component
 {
 public:
 	ComponentParticles();
+	ComponentParticles(PartType type );
 	~ComponentParticles();
 
 	void PreUpdate(float dt);
@@ -27,39 +38,12 @@ public:
 
 private:
 	ParticleSystem * particleSystem = nullptr;
-
-
-
+	
 	//this must work on API
 
-private:// Usuary data
-	//basic stats---------------------------------------------------
-	float duration = 5.f;
+private:
+	PartType partType;
 
-	bool looping = true;
-	bool prewarm = true;
-
-	float startDelay = 0.f;
-	float startLifeTime = 5.f;
-	float startSpeed = 5.f;
-
-	bool startSize3D = false;
-	float startSize = 1.f;
-	bool startRotation3D = false;
-	float startRotation = 0;
-
-	float randomizeRotation = 0.f; //may be between 0 & 1
-	float3 color = { 0.f,0.f,0.f }; // RGB
-
-	//Gravity modifier
-	//enum simulation Space 
-	float simulationSpeed = 1.f;
-	//enum scaling mode -local -world
-
-	bool playOnAwake = true;
-	int maxParticles = 1000;
-
-	bool autoRandomSeed = true;
-	int seed = 0;
+	float timeAlive = 0.f;
 	//---------------------------------------------------------------
 };

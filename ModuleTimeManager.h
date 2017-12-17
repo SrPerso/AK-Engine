@@ -39,6 +39,11 @@ public:
 	float GetRealTime(); //Real Time since Startup //Real Time Clock
 	float GetRealDeltaTime() const; //Last frame time expressed in seconds //Real Time Clock
 
+	bool getInGame() 
+	{
+		return isInGame;
+	}
+
 private:
 	uint frameCount;
 

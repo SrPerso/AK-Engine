@@ -95,6 +95,14 @@ update_status ModuleSceneEditor::Update(float dt)
 		wantToSave = true;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		GameObject * firework = CreateFirework();
+		
+		root->OnEvent(EVENT_PRESS1);
+
+	}
+
 	root->Update(dt);
 
 	return UPDATE_CONTINUE;
@@ -314,6 +322,28 @@ void ModuleSceneEditor::CreateEmptyGameObject()
 	{
 		root->AddChild(newGO);
 	}
+}
+
+GameObject * ModuleSceneEditor::CreateFirework()
+{
+	GameObject* newGO = new GameObject();
+	ComponentTransform* newTrans = new ComponentTransform();
+	ComponentParticles* newPart = new ComponentParticles(FIREWORK);
+	newGO->AddComponent(newTrans);
+	newGO->AddComponent(newPart);
+	newGO->isFire = true;
+	newGO->SetName((std::to_string(counterFireworks)+"Firework").c_str());
+	
+	if (selected != nullptr)
+	{
+		selected->AddChild(newGO);
+		newTrans->UpdateTrans();
+	}
+	else
+	{
+		root->AddChild(newGO);
+	}
+	return newGO;
 }
 
 void ModuleSceneEditor::WantToLoadScene(const char * fileTitle)

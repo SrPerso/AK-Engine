@@ -29,13 +29,26 @@ void ComponentTransform::Update(float dt)
 	if (needToUpdate)
 	{
 		UpdateTrans();
-		needToUpdate = false;		
+		needToUpdate = false;
 	}
 	if (myGO->selected == true)
 	{
 		ShowGizmo(*App->camera->GetEditorCamera());
 		myGO->UpdateChildsTransform();
 	}
+	if (this->myGO->isFire == true)
+	{
+		if (position.y<MAXFIREWORKALTITUDE && App->timeManager->getInGame() == true)
+			position.y += 0.2f;
+		
+		if (position.y >= MAXFIREWORKALTITUDE)
+		{
+			myGO->wantsToDie = true;
+		}
+
+	}
+
+
 }
 
 void ComponentTransform::UpdateTrans()
@@ -179,6 +192,10 @@ void ComponentTransform::OnLoad(Configuration & data)
 	globalTransformMatrix.float4x4::SetTranslatePart(position.x, position.y, position.z);
 
 	localTransformMatrix = globalTransformMatrix;
+}
+
+void ComponentTransform::OnEvent(Event_Engine ev)
+{
 }
 
 void ComponentTransform::ShowGizmo(ComponentCamera & camera)

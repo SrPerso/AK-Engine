@@ -51,6 +51,8 @@ enum Event_Engine
 	EVENT_PRESS1,
 	WITHOUT_EVENT
 };
+#define MAXFIREWORKALTITUDE 40.f
+#define MINFIREWORKALTITUDE 30.f
 
 
 // Configuration -----------

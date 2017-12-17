@@ -560,4 +560,87 @@ void ParticleSystem::CreateParticle()
 	particleVec.push_back(nParticle);
 }
 
+void ParticleSystem::SetExample1()
+{
+	emiter->data.particleRate = 0.1080f;
+	emiter->data.loop = false;
+	emiter->data.emiterTime = 1.f;
+	emiter->data.timePLife = 0.5;
+
+	initialState.gravity = -3.0f;
+	initialState.gravityVariation = 0.3f;
+	initialState.size1 = 0.5f;
+	initialState.size2 = 1.5f;
+
+	initialState.color.x = 5;
+	initialState.color.y = 0;
+	initialState.color.z = 0;
+	initialState.color.w = 0.3843f;
+
+	initialState.color2.x = 0.f;
+	initialState.color2.y = 10.f;
+	initialState.color2.z = 10.f;
+	initialState.color2.w = 0.415686;
+
+	finalState.gravity = -3.0f;
+	finalState.gravityVariation = 0.3f;
+	finalState.size1 = 1.5f;
+	finalState.size2 = 2.0f;
+
+	finalState.color.x = 10;
+	finalState.color.y = 10;
+	finalState.color.z = 10;
+	finalState.color.w = 0.67f;
+
+	finalState.color2.x = 0.731f;
+	finalState.color2.y = 0.731f;
+	finalState.color2.z = 0.731f;
+	finalState.color2.w = 0.705f;
+
+}
+
+void ParticleSystem::SetExample2()
+{
+	emiter->data.particleRate = 0.002f;
+	emiter->data.loop = true;
+	emiter->data.emiterTime = 0.2f;
+	emiter->data.timePLife = 0.5;
+	emiter->data.speed = 200.f;
+
+	initialState.gravity = -3.0f;
+	initialState.gravityVariation = 0.3f;
+	initialState.size1 = 0.5f;
+	initialState.size2 = 1.5f;
+
+	initialState.color.x = 05;
+	initialState.color.y = 0;
+	initialState.color.z = 0;
+	initialState.color.w = 0.3843f;
+
+	initialState.color2.x = 10;
+	initialState.color2.y = 10.f;
+	initialState.color2.z = 10.f;
+	initialState.color2.w = 0.415686;
+
+	finalState.gravity = -8.f;
+	finalState.gravityVariation = 0.3f;
+	finalState.size1 = 1.5f;
+	finalState.size2 = 2.0f;
+
+	finalState.color.x = 0;
+	finalState.color.y = 7;
+	finalState.color.z = 5;
+	finalState.color.w = 0.67f;
+
+	finalState.color2.x = 4;
+	finalState.color2.y = 0;
+	finalState.color2.z = 5;
+	finalState.color2.w = 0.705f;
+
+	emiter->type = E_SPHERE;
+	emiter->shape.sphere.r = 10.f;
+
+
+}
+
 

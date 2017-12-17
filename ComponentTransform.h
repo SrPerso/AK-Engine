@@ -5,6 +5,7 @@
 #include "MathGeo/Math/Quat.h"
 #include "MathGeo/Math/float4x4.h"
 
+
 class ComponentCamera;
 
 class ComponentTransform : public Component
@@ -26,6 +27,9 @@ public:
 	void OnEditor() override;
 	void OnSave(Configuration& data) const override;
 	void OnLoad(Configuration& data) override;
+
+	
+	void OnEvent(Event_Engine)override;
 
 	void ShowGizmo(ComponentCamera& camera);
 	float4x4 GetTransMatrix() const;
