@@ -38,6 +38,8 @@ void ComponentParticles::Update(float dt)
 	
 	particleSystem->SetTransform(myTransform->GetPosition(), myTransform->GetRotation(), {1,1,1});
 	particleSystem->Draw();
+
+	
 }
 
 void ComponentParticles::OnPlay()

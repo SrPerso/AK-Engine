@@ -82,6 +82,7 @@ public:
 	bool KillParticle();
 
 	bool killThis = false;
+	bool killed = false;
 
 private:
 	ParticleSystem * pSystem;

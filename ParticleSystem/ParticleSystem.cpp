@@ -40,7 +40,7 @@ bool ParticleSystem::PreUpdate(float dt)
 bool ParticleSystem::Update(float dt)
 {
 	bool ret = true;
-	
+
 	//tData.textureID = App->textures->ImportImage("../Game/Assets/Baker_house.png");
 
 	if (ps_state == PS_PLAYING)
@@ -83,13 +83,25 @@ bool ParticleSystem::Update(float dt)
 
 	for (std::vector<Particle*>::iterator it = particleVec.begin(); it != particleVec.end(); ++it)
 	{
-	
+
 		ret = (*it)->Update(dt);
-		if ((*it)->KillParticle() == true)
-		{			
-			size--;
+
+	}
+
+	for (std::vector<Particle*>::iterator it = particleVec.begin(); it != particleVec.end(); ++it)
+	{
+		if ((*it) != nullptr) {
+			if ((*it)->KillParticle() == true)
+			{
+				(*it)->killed = true;
+				
+				RELEASE(*it);
+			}
 		}
 	}
+
+
+	
 
 
 	return ret;
@@ -97,13 +109,16 @@ bool ParticleSystem::Update(float dt)
 
 bool ParticleSystem::PostUpdate(float dt)
 {
+	
+
 	return false;
 }
 
 void ParticleSystem::Stop()
 {
 	ps_state = PS_STOP;
-	
+	for (std::vector<Particle*>::iterator item = particleVec.begin(); item != particleVec.cend(); ++item)
+		RELEASE(*item);
 	particleVec.clear();
 }
 

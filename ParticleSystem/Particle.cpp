@@ -30,24 +30,29 @@ bool Particle::PreUpdate(float dt)
 
 bool Particle::Update(float dt) 
 {
-	if (pSystem->ps_state != PS_STOP)
-	{
-		float3 Orientation = pSystem->cameraPos - data.position;
-		Orientation.y = data.position.y;
-
-		data.rotation = Quat::LookAt(float3(0.0f, 0.0f, 1.0f), Orientation, float3(0.0f, 1.0f, 0.0f), float3(0.0f, 1.0f, 0.0f));
-		DrawParticle();
-	}
-
-
-	if (pSystem->ps_state == PS_PLAYING|| pSystem->ps_state == PS_STOP)
-	{
-		data.lifeTime += dt;
-		CalcInterpolation();
-
-		if (data.lifeTime >= data.maxLifeTime & killThis == false)
+	if (this != nullptr) {
+		if (pSystem->ps_state != PS_STOP)
 		{
-			killThis = true;
+			float3 Orientation = pSystem->cameraPos - data.position;
+			Orientation.y = data.position.y;
+
+			data.rotation = Quat::LookAt(float3(0.0f, 0.0f, 1.0f), Orientation, float3(0.0f, 1.0f, 0.0f), float3(0.0f, 1.0f, 0.0f));
+			DrawParticle();
+		}
+
+
+		if (pSystem->ps_state == PS_PLAYING || pSystem->ps_state == PS_STOP)
+		{
+			
+			data.lifeTime += dt;
+			CalcInterpolation();
+			if (killThis == false) {
+				if (data.lifeTime >= data.maxLifeTime)
+				{
+					killThis = true;
+					
+				}
+			}
 		}
 	}
 
