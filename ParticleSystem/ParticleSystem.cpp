@@ -12,7 +12,7 @@ ParticleSystem::ParticleSystem()
 
 	particleMesh = new ParticleMesh();
 	SetPlaneMesh();
-
+	//tData.textureID = App->textures->ImportImage("../Game/Assets/Baker_house.png");
 	emiter = new Emiter();
 	emiter->pSystem = this;
 }
@@ -43,24 +43,25 @@ bool ParticleSystem::Update(float dt)
 	bool ret = true;
 	
 	//tData.textureID = App->textures->ImportImage("../Game/Assets/Baker_house.png");
-	if (ps_state != PS_PLAYING  /*&& emiter->data.emiterTime > emiter->data.timeToEmite*/)
-		return ret;
 
-	this->control += dt;
-
-	this->ps_dt += dt;
-
-	if (control <= emiter->data.timeToEmite || emiter->data.loop == true)
+	if (ps_state == PS_PLAYING)
 	{
+		this->control += dt;
+		this->ps_dt += dt;
 
-		uint nParticles = ps_dt / emiter->data.particleRate;
-		for (int i = 0; i < nParticles; i++)
+		if (control <= emiter->data.timeToEmite || emiter->data.loop == true)
 		{
-			CreateParticle();
-			size++;
+
+			uint nParticles = ps_dt / emiter->data.particleRate;
+			for (int i = 0; i < nParticles; i++)
+			{
+				CreateParticle();
+				size++;
+			}
+
+			ps_dt -= emiter->data.particleRate * nParticles;
 		}
 
-		ps_dt -= emiter->data.particleRate * nParticles;
 	}
 
 	for (std::vector<Particle*>::iterator it = particleVec.begin(); it != particleVec.end(); ++it)

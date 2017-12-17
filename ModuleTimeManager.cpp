@@ -58,10 +58,15 @@ update_status ModuleTimeManager::PostUpdate(float dt)
 			PauseGame(!isGamePaused);
 		}
 		ImGui::SameLine();
+		if (ImGui::Button("Stop"))
+		{
+			PauseGame(!isGamePaused);
+		}
+		ImGui::SameLine();/*
 		if (ImGui::Button("Play One Frame"))
 		{
 			PlayOneFrame();
-		}
+		}*/
 
 		ImGui::Text("Total Frames: %i", GetFrameCount());
 		ImGui::Text("Game Time Clock: %.2f", GetTime());
@@ -92,7 +97,7 @@ void ModuleTimeManager::PlayGame(bool play)
 		time.Start();
 		App->sceneEditor->SaveScene("MainScene");
 	}
-	if (play == false)
+	else if (play == false)
 	{
 		time.Start();
 		time.Stop();
@@ -108,16 +113,20 @@ void ModuleTimeManager::PauseGame(bool pause)
 	isGamePaused = pause;
 
 	if (pause == true)
-	{
 		time.Stop();
-	}
-	if (pause == false)
-	{
+
+	else if (pause == false)
 		time.Continue();
-	}
+
 
 	App->sceneEditor->GetRoot()->Pause();
 }
+
+void ModuleTimeManager::StopGame(bool stoped)
+{	
+	PauseGame(stoped);
+	App->sceneEditor->GetRoot()->Stop();
+	}
 
 void ModuleTimeManager::PlayOneFrame()
 {

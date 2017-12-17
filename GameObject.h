@@ -20,8 +20,12 @@ public:
 	void AddComponent(Component* component);
 	void SetName(const char* name);
 
+	//Time controls!
 	void Play();
 	void Pause();
+	void Stop();
+	//-----
+
 
 	const char* GetName() const;
 	int GetUID()const;

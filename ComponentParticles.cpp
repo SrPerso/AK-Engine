@@ -50,6 +50,11 @@ void ComponentParticles::OnPause()
 	particleSystem->Pause();
 }
 
+void ComponentParticles::OnStop()
+{
+	particleSystem->Stop();
+}
+
 void ComponentParticles::OnEditor()
 {
 

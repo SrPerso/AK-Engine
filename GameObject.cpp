@@ -132,6 +132,20 @@ void GameObject::Pause()
 
 }
 
+void GameObject::Stop()
+{
+
+	for (int i = 0; i < components.size(); i++)
+	{
+		components[i]->OnStop();
+	}
+	for (int i = 0; i < childs.size(); i++)
+	{
+		childs[i]->Stop();
+	}
+
+}
+
 const char * GameObject::GetName() const
 {
 	return name.c_str();

@@ -34,6 +34,10 @@ void Component::OnPlay()
 
 }
 
+void Component::OnStop()
+{
+}
+
 void Component::OnSave(Configuration& data) const
 {
 }

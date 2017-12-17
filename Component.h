@@ -25,8 +25,12 @@ public:
 	virtual void Disable();
 	virtual void OnEditor();
 
+	//time manager ---
 	virtual void OnPause();
 	virtual void OnPlay();
+	virtual void OnStop();
+	//---
+
 
 	virtual void OnSave(Configuration& data)const;
 	virtual void OnLoad(Configuration& data);
