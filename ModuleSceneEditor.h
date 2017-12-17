@@ -11,7 +11,7 @@
 class GameObject;
 class Mesh;
 class Quadtree;
-
+enum PartType;
 class Emiter;	//To test
 
 class ModuleSceneEditor : public Module
@@ -45,7 +45,7 @@ public:
 
 	GameObject* CreateNewGameObject(const char* path);
 	void CreateEmptyGameObject();
-	GameObject* CreateFirework();
+	GameObject* CreateFirework(PartType type, float3 position);
 	void WantToLoadScene(const char* fileTitle);
 	void SaveScene(const char* fileTitle)const;
 	void LoadScene(const char* fileTitle);

@@ -61,6 +61,7 @@ void Primitive::Render() const
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	InnerRender();
+	glColor4f(1, 1.0f, 1, 1.0f);
 
 	glPopMatrix();
 

@@ -35,7 +35,7 @@ public:
 	float4x4 GetTransMatrix() const;
 
 	bool needToUpdate;
-
+	bool exploted = false;
 private:
 	float3 position;
 	float3 newPosition;

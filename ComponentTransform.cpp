@@ -4,9 +4,10 @@
 #include "Configuration.h"
 #include "Globals.h"
 #include "ComponentCamera.h"
-
+#include "ComponentParticles.h"
 #include "imgui-1.51/imgui.h"
 #include "ImGuizmo/ImGuizmo.h"
+#include "ModuleSceneEditor.h"
 
 ComponentTransform::ComponentTransform(float3 pos, float3 scale, Quat rot, ComponentType type) : Component(Component_Transform), position(pos), newPosition(pos), scale(scale), rotation(rot)
 {
@@ -38,13 +39,24 @@ void ComponentTransform::Update(float dt)
 	}
 	if (this->myGO->isFire == true)
 	{
-		if (position.y<MAXFIREWORKALTITUDE && App->timeManager->getInGame() == true)
-			position.y += 0.2f;
-		
-		if (position.y >= MAXFIREWORKALTITUDE)
+		if (position.y < MAXFIREWORKALTITUDE && App->timeManager->getInGame() == true)
 		{
-			myGO->wantsToDie = true;
+			position.y += 0.2f;
+		}			
+		
+		if (position.y >= MAXFIREWORKALTITUDE && exploted ==false)
+		{
+			myGO->wantsToExplode = true;
+
+
+
+			exploted = true;
+
+
+			// App->sceneEditor->CreateFirework(EXPLOSION,position);
+	
 		}
+
 
 	}
 

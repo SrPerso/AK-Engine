@@ -8,7 +8,7 @@
 #include "ModuleCamera3D.h"
 
 
-#define MAXTIMEEXPLODING 0.3f
+#define MAXTIMEEXPLODING 0.5f
 
 
 enum PartType
@@ -43,7 +43,7 @@ private:
 
 private:
 	PartType partType;
-
+	float timer = 45.0f;
 	float timeAlive = 0.f;
 	//---------------------------------------------------------------
 };

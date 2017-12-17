@@ -18,7 +18,7 @@ public:
 	void PostUpdate();
 	void AddChild(GameObject* child);
 	void DeleteChilds();
-	void DeleteChild(GameObject* child);
+
 	void AddComponent(Component* component);
 	void SetName(const char* name);
 
@@ -61,6 +61,7 @@ public:
 	bool isStatic;
 
 	bool isFire = false;
+	bool wantsToExplode = false;
 	bool wantsToDie = false;
 protected:
 	int uid;

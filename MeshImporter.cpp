@@ -66,11 +66,16 @@ void MeshImporter::Load(const char * inputFile, ResourceMesh* mesh)
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->idNormals);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->numVertices * 3, mesh->normals, GL_STATIC_DRAW);
 
-		// Load TexCoords
-		cursor += bytes;
-		bytes = sizeof(float) * mesh->numVertices * 3;
-		mesh->texCoords = new float[mesh->numVertices * 3];
-		memcpy(mesh->texCoords, cursor, bytes);
+
+
+
+			// Load TexCoords
+			cursor += bytes;
+			bytes = sizeof(float) * mesh->numVertices * 3;
+			mesh->texCoords = new float[mesh->numVertices * 3];
+			memcpy(mesh->texCoords, cursor, bytes);
+	
+
 
 		glGenBuffers(1, (GLuint*) &(mesh->idTexCoords));
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->idTexCoords);

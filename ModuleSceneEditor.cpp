@@ -7,7 +7,7 @@
 #include "ModuleSceneEditor.h"
 #include "Quadtree.h"
 #include "ModuleRenderer3D.h"
-
+#include "ComponentParticles.h"
 #include "Glew/include/glew.h"
 
 //To test
@@ -97,10 +97,7 @@ update_status ModuleSceneEditor::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		GameObject * firework = CreateFirework();
-		
-		root->OnEvent(EVENT_PRESS1);
-
+		GameObject * firework = CreateFirework(FIREWORK, {0,0,0});
 	}
 
 	root->Update(dt);
@@ -324,16 +321,16 @@ void ModuleSceneEditor::CreateEmptyGameObject()
 	}
 }
 
-GameObject * ModuleSceneEditor::CreateFirework()
+GameObject * ModuleSceneEditor::CreateFirework(PartType type, float3 position)
 {
 	GameObject* newGO = new GameObject();
-	ComponentTransform* newTrans = new ComponentTransform();
-	ComponentParticles* newPart = new ComponentParticles(FIREWORK);
+	ComponentTransform* newTrans = new ComponentTransform(position);
+	ComponentParticles* newPart = new ComponentParticles(type);
 	newGO->AddComponent(newTrans);
 	newGO->AddComponent(newPart);
 	newGO->isFire = true;
 	newGO->SetName((std::to_string(counterFireworks)+"Firework").c_str());
-	
+	counterFireworks++;
 	if (selected != nullptr)
 	{
 		selected->AddChild(newGO);

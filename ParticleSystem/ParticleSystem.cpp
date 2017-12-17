@@ -93,8 +93,7 @@ bool ParticleSystem::Update(float dt)
 		if ((*it) != nullptr) {
 			if ((*it)->KillParticle() == true)
 			{
-				(*it)->killed = true;
-				
+				(*it)->killed = true;				
 				RELEASE(*it);
 			}
 		}
@@ -338,9 +337,6 @@ void ParticleSystem::DrawParticleSystemEditor()
 	if (!windowShow)
 		return;
 	
-	ImGui::Text("Number of particles %i", particleVec.size()); //to delete
-
-
 	if (ImGui::CollapsingHeader("Basic"))
 	{
 		DrawBasicEditor();
@@ -499,7 +495,7 @@ void ParticleSystem::SetPlaneMesh()
 	
 	glGenBuffers(1, (GLuint*)&particleMesh->idIndices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, particleMesh->idIndices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * particleMesh->idIndices, particleMesh->indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * particleMesh->idIndices, particleMesh->indices, GL_STATIC_DRAW);
 	
 	
 	particleMesh->colors = new float[particleMesh->numVertices * 3];
@@ -564,9 +560,10 @@ void ParticleSystem::SetExample1()
 {
 	emiter->data.particleRate = 0.1080f;
 	emiter->data.loop = false;
+	//emiter->active = false;
 	emiter->data.emiterTime = 1.f;
 	emiter->data.timePLife = 0.5;
-
+	//emiter->active = false;
 	initialState.gravity = -3.0f;
 	initialState.gravityVariation = 0.3f;
 	initialState.size1 = 0.5f;
@@ -601,12 +598,13 @@ void ParticleSystem::SetExample1()
 
 void ParticleSystem::SetExample2()
 {
-	emiter->data.particleRate = 0.002f;
-	emiter->data.loop = true;
-	emiter->data.emiterTime = 0.2f;
-	emiter->data.timePLife = 0.5;
-	emiter->data.speed = 200.f;
+	emiter->data.particleRate = 0.012f;
+	emiter->data.loop = false;
 
+	emiter->data.timeToEmite = 1.1f;
+	emiter->data.timePLife = 1;
+	emiter->data.speed = 200;
+	//emiter->active = false;
 	initialState.gravity = -3.0f;
 	initialState.gravityVariation = 0.3f;
 	initialState.size1 = 0.5f;

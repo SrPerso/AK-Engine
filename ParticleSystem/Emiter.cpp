@@ -103,12 +103,13 @@ void Emiter::DrawEmiter()
 		DrawBox(shape.box);
 		break;
 	}
+	
 }
 
 void Emiter::DrawEmiterEditor()
 {
 	/* Enable Disable Draw*/
-	ImGui::Checkbox("Draw Shape", &active);
+	//ImGui::Checkbox("Draw Shape", &active);
 
 	ImGui::SliderFloat("Emiting time", (float*)&data.timeToEmite, -1, 100);
 

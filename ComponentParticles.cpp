@@ -19,16 +19,21 @@ ComponentParticles::ComponentParticles(PartType type) : Component(Component_Part
 
 	name = "Particle System";
 	particleSystem = new ParticleSystem();
+
 	this->partType = type;
 
-	if(type == EXPLOSION)
-		particleSystem->SetExample2();
 
-	if (type == FIREWORK)
+	if (partType == FIREWORK)
 	{
-		timeAlive = App->timeManager->GetRealDeltaTime();
 		particleSystem->SetExample1();
+		timeAlive = App->timeManager->GetRealTime();
+
 	}
+	//if (partType == EXPLOSION)
+	//{
+	//
+	//	particleSystem->SetExample2();
+	//}
 
 
 	if (App->timeManager->getInGame() == true)
@@ -45,13 +50,13 @@ ComponentParticles::~ComponentParticles()
 
 void ComponentParticles::PreUpdate(float dt)
 {
-	//cuando se le de al Play
+
 	
 }
 
 void ComponentParticles::Update(float dt)
 {
-
+	
 	ComponentCamera* camera = App->camera->GetEditorCamera();
 	particleSystem->cameraPos = camera->GetFrustum().pos;
 
@@ -63,13 +68,19 @@ void ComponentParticles::Update(float dt)
 	particleSystem->SetTransform(myTransform->GetPosition(), myTransform->GetRotation(), {1,1,1});
 	particleSystem->Draw();
 
-	if(timeAlive>MAXTIMEEXPLODING && type == EXPLOSION)
+	if (myGO->wantsToExplode == true )
 	{
+		timer--;
+		particleSystem->SetExample2();
 
-
+		if(timer<=0.01f)
+			myGO->wantsToDie = true;
+		//	myGO->wantsToDie = true;
+			
 	}
-
+		
 	
+
 	
 }
 
@@ -115,7 +126,6 @@ void ComponentParticles::OnSave(Configuration & data) const
 	data.SetFloat("e_speed", vectEmiter[5]);
 	data.SetFloat("e_modSpeed", vectEmiter[6]);
 	data.SetFloat("e_emiterTime", vectEmiter[7]);
-
 
 	std::vector<float> initPart = particleSystem->SaveInitialState();;
 
