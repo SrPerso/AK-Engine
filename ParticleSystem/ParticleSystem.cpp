@@ -24,7 +24,6 @@ ParticleSystem::~ParticleSystem()
 	RELEASE(particleMesh);
 
 
-
 	//for (std::vector<Particle*>::iterator it = particleVec.end(); it != particleVec.begin(); --it)
 	//{
 	//	particleVec.pop_back();
