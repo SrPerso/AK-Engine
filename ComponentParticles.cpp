@@ -126,7 +126,7 @@ void ComponentParticles::OnSave(Configuration & data) const
 	data.SetFloat("f_color_w", finalPart[10]);
 
 	data.SetFloat("f_color2_x", finalPart[11]);
-	data.SetFloat("f_color2_x", finalPart[12]);
+	data.SetFloat("f_color2_y", finalPart[12]);
 	data.SetFloat("f_color2_z", finalPart[13]);
 	data.SetFloat("f_color2_w", finalPart[14]);
 
