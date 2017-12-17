@@ -51,7 +51,7 @@ public:
 	float timeToEmite = 20.f; // if the timeToEmite == 0.0f then never ends to emite == bool loop = true
 	bool loop = true;
 
-	float particleRate = 2.f; // quantity of particles droped in a sec
+	float particleRate = 1.f; // quantity of particles droped in a sec
 
 						  //Particles --------
 	float timePLife = 2.f;
@@ -93,13 +93,13 @@ public:
 	void DrawPoligon(const AABB& box);
 	void DrawCircle(const Circle& circle);
 
-	
+	EmiterData data;
 private:
 	bool active = true; //can be draw the shape or not
 	
 	ParticleSystem* pSystem;
 
-	EmiterData data;
+
 	Etype type = E_SPHERE;
 	Shape shape; 
 	

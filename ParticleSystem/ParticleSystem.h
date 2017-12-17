@@ -15,9 +15,12 @@
 // -------------------------------------- [STATE]
 struct SystemState //going to global state to set on particles latter
 {	
-	float size = 1.0f;
+	float size1 = 1.f;
+	float size2 = 1.f;
 	float gravity = 9.8f;
 	float gravityVariation = 0.0f;
+	float rotation = 0.f;
+	float rotation2 = 0.f;
 	float speed = 1.0f;
 	float4 color = float4::one; 
 	float4 color2 = float4::one;
@@ -61,6 +64,13 @@ public:
 	void Pause();
 
 
+	//	Save & load------------------------
+
+	void Load(std::vector<float> vectEmiter, std::vector<float>initPart, std::vector<float>finalPart);
+	void Save(std::vector<float>& vectEmiter, std::vector<float> & initPart, std::vector<float> &finalPart);
+	std::vector<float> SaveEmiter();
+	std::vector<float> SaveEndState();
+	std::vector<float> SaveInitialState();
 	//UI -------------------------------
 	
 	//Draws ---
