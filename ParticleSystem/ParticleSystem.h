@@ -57,7 +57,6 @@ public:
 	void Play();// used to play the particle system
 	void Pause();// Stops the particles
 
-
 	//	Save & load------------------------
 	/* used to calls to load and save the particle system*/
 
@@ -87,7 +86,6 @@ public:
 	void SetDesactive();
 	void CreateParticle();
 
-
 private:
 	ParticleMesh* particleMesh;
 	std::vector<Particle*> particleVec;
@@ -109,17 +107,10 @@ public:
 	PTransformation* transformation; 
 	TextureData tData;
 	float3 cameraPos = float3::zero;
-	
-
 
 	/* SOME EXAMPLES*/
 
 	void SetExample1();
 	void SetExample2();
 };
-
-
-
-
-
 #endif // !_PS_PARTICLE_SYSTEM_

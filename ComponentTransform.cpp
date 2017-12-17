@@ -47,14 +47,7 @@ void ComponentTransform::Update(float dt)
 		if (position.y >= MAXFIREWORKALTITUDE && exploted ==false)
 		{
 			myGO->wantsToExplode = true;
-
-
-
-			exploted = true;
-
-
-			// App->sceneEditor->CreateFirework(EXPLOSION,position);
-	
+			exploted = true;	
 		}
 
 

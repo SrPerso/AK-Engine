@@ -23,8 +23,6 @@ Particle::~Particle()
 
 bool Particle::PreUpdate(float dt)
 {
-	//billboard
-	
 	return true;
 }
 
@@ -80,9 +78,6 @@ void Particle::SetState(State & myState, const SystemState & sState)
 	myState.color.z = randG.Float(sState.color.z, sState.color2.z);
 	myState.color.w = randG.Float(sState.color.w, sState.color2.w);
 
-	//rotationSpeed 
-	myState.rotationSpeed = randG.Float(sState.rotation, sState.rotation2);
-
 	//Size
 	myState.size = randG.Float(sState.size1, sState.size2);
 
@@ -98,8 +93,6 @@ void Particle::CalcInterpolation()
 	data.position +=data.direction*data.lifeTime*0.02;
 	data.speed= Initial.speed + data.lifeTime*(Final.speed - Initial.speed);
 	data.direction *= data.speed;
-	
-	data.rotationF = Initial.rotationSpeed + data.lifeTime*(Final.rotationSpeed - Initial.rotationSpeed);
 	
 	//Size;
 	data.size = Initial.size + data.lifeTime*(Final.size - Initial.size);
@@ -119,15 +112,15 @@ void Particle::CalcInterpolation()
 void Particle::DrawParticle()
 {
 	ParticleMesh* mesh = pSystem->GetMesh();
-	data.rotation.RotateAxisAngle({0,0,1}, data.rotationF);
+
 	float3 newScale = data.scale * data.size*0.1;
-	//glDisable(GL_CULL_FACE);
+
 	glColor4f(data.color.x, data.color.y, data.color.z, data.color.z);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnable(GL_NORMALIZE);
-	//glEnable(GL_TEXTURE_2D);
+
 	glEnable(GL_BLEND);
-//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	
 	if (pSystem->tData.textureID != 0)
 	{
@@ -144,13 +137,7 @@ void Particle::DrawParticle()
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->idNormals);
 		glNormalPointer(GL_FLOAT, 0, NULL);
 	}
-	/*if (mesh->colors != nullptr)
-	{
-		
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->idColors);
-		glTexCoordPointer(3, GL_FLOAT, 0, NULL);
-	}*/
+
 	glTexCoordPointer(3, GL_FLOAT, 0, NULL);
 
 	glPushMatrix();
@@ -163,8 +150,6 @@ void Particle::DrawParticle()
 	glPopMatrix();
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-	//glDisable(GL_TEXTURE_2D);
-	//glDisable(GL_BLEND);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
@@ -181,7 +166,6 @@ bool Particle::KillParticle()
 {
 	return killThis;
 }
-
 
 
 void ParticleMesh::SetMesh(ParticleMesh & newMesh)

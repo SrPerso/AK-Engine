@@ -385,7 +385,7 @@ void ModuleRenderer3D::DrawMesh(ComponentMesh * toDraw)
 
 	if (toDraw->GetIDNormals() > 0)
 	{
-	//	glEnable(GL_LIGHTING);
+
 		glEnableClientState(GL_NORMAL_ARRAY);
 
 		glBindBuffer(GL_ARRAY_BUFFER, toDraw->GetIDNormals());

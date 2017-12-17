@@ -13,30 +13,17 @@
 enum Etype //type of the emiter
 {
 	E_SPHERE,
-	E_BOX,
 	E_SEMISPHERE,
-	E_CONE,
-	E_SQUARE,
 	E_CIRCLE
-};
-
-struct SCone //Basic figure from a cone
-{
-	Circle up;
-	Circle down;
-	float tall = 1.f;
 };
 
 union Shape
 {
 	Shape(){}
 
-	AABB box;
 	Sphere sphere;
 	Sphere semiSphere;
 	Circle circle;
-	SCone cone;
-	AABB quad;
 }; 
 
 //-------------------------------[DATA]
@@ -87,10 +74,7 @@ public:
 	/* Draw shapes functiones.... E_SPHERE,E_BOX,	E_SEMISPHERE, E_CONE, E_SQUARE,	E_CIRCLE */
 
 	void DrawSphere(const Sphere&sphere);
-	void DrawBox(const AABB& box);
 	void DrawSemiSphere(const Sphere&sphere);
-	void DrawCone(const SCone& cone);
-	void DrawPoligon(const AABB& box);
 	void DrawCircle(const Circle& circle);
 
 	EmiterData data;

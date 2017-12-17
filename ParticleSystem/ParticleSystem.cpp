@@ -12,7 +12,6 @@ ParticleSystem::ParticleSystem()
 
 	particleMesh = new ParticleMesh();
 	SetPlaneMesh();
-	//tData.textureID = App->textures->ImportImage("../Game/Assets/Baker_house.png");
 	emiter = new Emiter();
 	emiter->pSystem = this;
 }
@@ -22,12 +21,6 @@ ParticleSystem::~ParticleSystem()
 	RELEASE(emiter);
 	RELEASE(transformation);
 	RELEASE(particleMesh);
-
-
-	//for (std::vector<Particle*>::iterator it = particleVec.end(); it != particleVec.begin(); --it)
-	//{
-	//	particleVec.pop_back();
-	//}
 }
 
 bool ParticleSystem::PreUpdate(float dt)
@@ -108,8 +101,6 @@ bool ParticleSystem::Update(float dt)
 
 bool ParticleSystem::PostUpdate(float dt)
 {
-	
-
 	return false;
 }
 
@@ -346,14 +337,12 @@ void ParticleSystem::DrawParticleSystemEditor()
 	{
 		emiter->DrawEmiterEditor();
 	}
-	ImGui::Spacing;
-	ImGui::Spacing;
+
 }
 
 void ParticleSystem::Draw()
 {
 	emiter->DrawEmiter();
-
 }
 
 void ParticleSystem::DrawBasicEditor()
@@ -361,11 +350,7 @@ void ParticleSystem::DrawBasicEditor()
 	if (ImGui::TreeNodeEx("Initial"))
 	{
 			ImGui::SliderFloat("Speed", (float*)&initialState.speed, -2, 2);
-			ImGui::SliderFloat("Gravity", (float*)&initialState.gravity, -10, 10);
-			ImGui::SliderFloat("Gravity Variation", (float*)&initialState.gravityVariation, -5, 5);
-			ImGui::Separator();
-			ImGui::SliderFloat("rot1", (float*)&initialState.rotation, 0, 10);
-			ImGui::SliderFloat("rot2", (float*)&initialState.rotation2, 0, 10);
+			ImGui::SliderFloat("Gravity", (float*)&initialState.gravity, -10, 10);		
 			ImGui::Separator();
 			ImGui::SliderFloat("Size1", (float*)&initialState.size1, 0, 30);
 			ImGui::SliderFloat("Size2", (float*)&initialState.size2, 0, 30);
@@ -403,10 +388,6 @@ void ParticleSystem::DrawBasicEditor()
 	{
 			ImGui::SliderFloat("Speed", (float*)&finalState.speed, -2, 2);
 			ImGui::SliderFloat("Gravity", (float*)&finalState.gravity, -10, 10);
-			ImGui::SliderFloat("Gravity Variation", (float*)&finalState.gravityVariation, -5, 5);
-			ImGui::Separator();
-			ImGui::SliderFloat("rot1", (float*)&finalState.rotation, 0, 10);
-			ImGui::SliderFloat("rot2", (float*)&finalState.rotation2, 0, 10);
 			ImGui::Separator();
 			ImGui::Separator();
 			ImGui::SliderFloat("Size1", (float*)&finalState.size1, 0, 100);
@@ -533,23 +514,8 @@ void ParticleSystem::CreateParticle()
 
 		if (direction.y < 0)
 			direction.y = abs(direction.y);
+		break;
 
-		break;
-	case E_CONE:
-		float3 basePoint = float3::zero;
-		float3 topPoint = float3(0.0f, emiter->shape.cone.tall, 0.0f);
-		if (emiter->shape.cone.down.r > 0.0f)
-		{
-			float radius = rGen.Float(0.0f, emiter->shape.cone.down.r);
-			float angle = rGen.Float(0.0f, 360.0f) * DEGTORAD;
-			basePoint = float3(cos(angle) * radius, 0.0f, sin(angle) * radius);
-		}
-		if (emiter->shape.cone.up.r > 0.0f)
-			topPoint = (emiter->shape.cone.up.r * basePoint) / emiter->shape.cone.down.r;
-		topPoint.y = emiter->shape.cone.tall;
-		//offset = BasePoint;
-		direction = topPoint - basePoint;
-		break;
 	};
 
 	Particle* nParticle = new Particle(this, initialState, finalState, direction * (emiter->data.speed + rGen.Float(-emiter->data.modSpeed, emiter->data.modSpeed)), emiter->data.timePLife);
@@ -560,10 +526,10 @@ void ParticleSystem::SetExample1()
 {
 	emiter->data.particleRate = 0.1080f;
 	emiter->data.loop = false;
-	//emiter->active = false;
+
 	emiter->data.emiterTime = 1.f;
 	emiter->data.timePLife = 0.5;
-	//emiter->active = false;
+
 	initialState.gravity = -3.0f;
 	initialState.gravityVariation = 0.3f;
 	initialState.size1 = 0.5f;
@@ -604,7 +570,7 @@ void ParticleSystem::SetExample2()
 	emiter->data.timeToEmite = 1.1f;
 	emiter->data.timePLife = 1;
 	emiter->data.speed = 200;
-	//emiter->active = false;
+
 	initialState.gravity = -3.0f;
 	initialState.gravityVariation = 0.3f;
 	initialState.size1 = 0.5f;

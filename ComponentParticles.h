@@ -10,13 +10,13 @@
 
 #define MAXTIMEEXPLODING 0.5f
 
-
 enum PartType
 {
 	FIREWORK,
 	EXPLOSION,
 	NORMAL
 };
+
 class ComponentParticles : public Component
 {
 public:
@@ -38,8 +38,6 @@ public:
 
 private:
 	ParticleSystem * particleSystem = nullptr;
-	
-	//this must work on API
 
 private:
 	PartType partType;

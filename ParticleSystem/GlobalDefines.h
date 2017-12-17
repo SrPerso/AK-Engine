@@ -69,15 +69,10 @@ typedef unsigned int uint;
 // YELLOW 1.0f, 0.85f, 0.0f
 // CYAN 0.0f, 0.8f, 0.9f //BLUE
 
-
 enum ParticleSystem_State
 {
 	PS_PLAYING,
 	PS_PAUSE,
 	PS_STOP
 };
-
-
-
-
 #endif // !_GLOBAL_DEFINES_
