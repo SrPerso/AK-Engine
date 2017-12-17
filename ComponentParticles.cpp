@@ -183,4 +183,6 @@ void ComponentParticles::OnLoad(Configuration & data)
 	finalPart->push_back(data.GetFloat("f_color2_z"));
 	finalPart->push_back(data.GetFloat("f_color2_w"));
 
+
+	 particleSystem->Load(*vectEmiter, *initPart, *finalPart);
 }
