@@ -60,9 +60,9 @@ update_status ModuleTimeManager::PostUpdate(float dt)
 		ImGui::SameLine();
 		if (ImGui::Button("Stop"))
 		{
-			PauseGame(!isGamePaused);
+			StopGame(!isGamePaused);
 		}
-		ImGui::SameLine();/*
+		/*	ImGui::SameLine();
 		if (ImGui::Button("Play One Frame"))
 		{
 			PlayOneFrame();
@@ -72,14 +72,14 @@ update_status ModuleTimeManager::PostUpdate(float dt)
 		ImGui::Text("Game Time Clock: %.2f", GetTime());
 		ImGui::Text("Real Time Clock: %.2f", GetRealTime());
 
-		if (isInGame == true)
+	/*	if (isInGame == true)
 		{
 			ImGui::Text("Playing!");
 		}
 		if (isInGame == false)
 		{
 			ImGui::Text("Not Playing!");
-		}
+		}*/
 
 	ImGui::End();
 

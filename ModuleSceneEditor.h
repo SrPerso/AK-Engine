@@ -62,9 +62,7 @@ private:
 	bool wantToLoad = false;
 	std::string loadPath;
 
-
 	Timer saveLoadTimer;
-
 
 	//To test
 	Sphere spheretest;

@@ -86,11 +86,8 @@ bool ParticleSystem::PostUpdate(float dt)
 void ParticleSystem::Stop()
 {
 	ps_state = PS_STOP;
-
-	for (std::vector<Particle*>::iterator it = particleVec.begin(); it != particleVec.end(); ++it)
-		(*it)->KillParticle();
-
-
+	
+	particleVec.clear();
 }
 
 void ParticleSystem::Play()
