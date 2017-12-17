@@ -104,8 +104,7 @@ void Particle::CalcInterpolation()
 	data.color.y = Initial.color.y + data.lifeTime*(Final.color.y - Initial.color.y);
 	data.color.z = Initial.color.z + data.lifeTime*(Final.color.z - Initial.color.z);
 	data.color.w = Initial.color.w + data.lifeTime*(Final.color.w - Initial.color.w);
-
-
+	
 
 	//Gravity
 
@@ -120,7 +119,7 @@ void Particle::DrawParticle()
 	//glDisable(GL_CULL_FACE);
 	glColor4f(data.color.x, data.color.y, data.color.z, data.color.z);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
+	glEnable(GL_NORMALIZE);
 	//glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -128,7 +127,7 @@ void Particle::DrawParticle()
 	if (pSystem->tData.textureID != 0)
 	{
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glBindTexture(GL_TEXTURE_2D, pSystem->tData.textureID);
+		glBindTexture(GL_TEXTURE_2D,0);
 	}
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->idVertices);
@@ -140,13 +139,14 @@ void Particle::DrawParticle()
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->idNormals);
 		glNormalPointer(GL_FLOAT, 0, NULL);
 	}
-	if (mesh->colors != nullptr)
+	/*if (mesh->colors != nullptr)
 	{
 		
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->idColors);
 		glTexCoordPointer(3, GL_FLOAT, 0, NULL);
-	}
+	}*/
+	glTexCoordPointer(3, GL_FLOAT, 0, NULL);
 
 	glPushMatrix();
 	float4x4 ParticleMatrix = float4x4::FromTRS(data.position, data.rotation, newScale).Transposed();
@@ -157,14 +157,14 @@ void Particle::DrawParticle()
 
 	glPopMatrix();
 
-	//glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 	//glDisable(GL_TEXTURE_2D);
 	//glDisable(GL_BLEND);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	 glEnd();
+	glEnd();
 }
 
 bool Particle::isAlive()

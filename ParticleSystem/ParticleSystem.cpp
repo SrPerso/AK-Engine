@@ -524,6 +524,21 @@ void ParticleSystem::CreateParticle()
 			direction.y = abs(direction.y);
 
 		break;
+	case E_CONE:
+		float3 basePoint = float3::zero;
+		float3 topPoint = float3(0.0f, emiter->shape.cone.tall, 0.0f);
+		if (emiter->shape.cone.down.r > 0.0f)
+		{
+			float radius = rGen.Float(0.0f, emiter->shape.cone.down.r);
+			float angle = rGen.Float(0.0f, 360.0f) * DEGTORAD;
+			basePoint = float3(cos(angle) * radius, 0.0f, sin(angle) * radius);
+		}
+		if (emiter->shape.cone.up.r > 0.0f)
+			topPoint = (emiter->shape.cone.up.r * basePoint) / emiter->shape.cone.down.r;
+		topPoint.y = emiter->shape.cone.tall;
+		//offset = BasePoint;
+		direction = topPoint - basePoint;
+		break;
 	};
 
 	Particle* nParticle = new Particle(this, initialState, finalState, direction * (emiter->data.speed + rGen.Float(-emiter->data.modSpeed, emiter->data.modSpeed)), emiter->data.timePLife);

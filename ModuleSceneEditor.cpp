@@ -57,16 +57,19 @@ bool ModuleSceneEditor::Start()
 	//App->camera->SetMainCamera(camera);
 	//scene->AddComponent(camera);
 
-	GameObject* newGO = new GameObject();
-	root->AddChild(newGO);
-	newGO->SetName("Particles");
-	ComponentTransform* newTrans = new ComponentTransform();
-	newGO->AddComponent(newTrans);	
-	ComponentParticles* newPart = new ComponentParticles();
-	newGO->AddComponent(newPart);
+	//GameObject* newGO = new GameObject();
+	//root->AddChild(newGO);
+	//newGO->SetName("Particles");
+	//ComponentTransform* newTrans = new ComponentTransform();	
+	//newGO->AddComponent(newTrans);	
+	//ComponentParticles* newPart = new ComponentParticles();
+	//newGO->AddComponent(newPart);
 
 	tree = new Quadtree(); 
 	
+
+	App->sceneEditor->WantToLoadScene("Assets/Scene/MainScene.aKS");
+
 	//spheretest.r = 2.f;
 
 
